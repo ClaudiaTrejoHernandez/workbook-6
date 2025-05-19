@@ -6,7 +6,7 @@ import java.util.List;
 public class Portfolio {
     private String name;
     private String owner;
-    private ArrayList<Asset> assets;
+    private ArrayList<Valuable> assets;
 
     public Portfolio(String name, String owner) {
         this.name = name;
@@ -30,19 +30,23 @@ public class Portfolio {
         this.owner = owner;
     }
 
-    public ArrayList<Asset> getAssets() {
+    public ArrayList<Valuable> getAssets() {
         return assets;
     }
 
-    public void setAssets(ArrayList<Asset> assets) {
+    public void setAssets(ArrayList<Valuable> assets) {
         this.assets = assets;
     }
 
-    public void addAsset(ArrayList<Asset> assets) {
-
+    public void add(Valuable asset) {
+        assets.add(asset);
     }
 
-    public void getValue(double value) {
-
+    public double getValue() {
+        double total = 0;
+        for (Valuable asset: assets) {
+            total += asset.getValue();
+        }
+        return total;
     }
 }

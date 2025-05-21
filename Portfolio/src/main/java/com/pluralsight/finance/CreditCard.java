@@ -12,6 +12,22 @@ public class CreditCard implements Valuable {
         this.balance = balance;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getAccNum() {
+        return accNum;
+    }
+
+    public void setAccNum(String accNum) {
+        this.accNum = accNum;
+    }
+
     public void charge(double amount) {
         balance += amount;
     }

@@ -19,6 +19,6 @@ public class Gold extends FixedAsset {
 
     @Override
     public double getValue() {
-        return 0;
+        return super.getValue();
     }
 }

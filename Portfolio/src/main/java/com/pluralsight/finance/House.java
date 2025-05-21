@@ -13,6 +13,8 @@ public class House extends FixedAsset{
         this.bedrooms = bedrooms;
     }
 
+
+
     public int getYearBuilt() {
         return yearBuilt;
     }
@@ -39,6 +41,6 @@ public class House extends FixedAsset{
 
     @Override
     public double getValue() {
-        return 0;
+        return super.getValue();
     }
 }

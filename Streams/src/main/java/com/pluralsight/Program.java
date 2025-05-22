@@ -32,7 +32,7 @@ public class Program {
                 System.out.println("Enter choice: ");
                 int choice = read.nextInt();
                 read.nextLine();
-
+ 
                 switch (choice) {
                     case 1 -> searchByFirstName(people);
                     case 2 -> searchByLastName(people);

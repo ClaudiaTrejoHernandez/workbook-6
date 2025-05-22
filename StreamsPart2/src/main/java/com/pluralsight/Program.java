@@ -1,10 +1,8 @@
 package com.pluralsight;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.InputMismatchException;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class Program {
 
@@ -14,7 +12,7 @@ public class Program {
 
         List<Person> people = new ArrayList<>();
         people.add(new Person("Emma", "Johnson", 28));
-        people.add(new Person("Liam", "Smith", 34));
+        people.add(new Person("Emma", "Smith", 34));
         people.add(new Person("Olivia", "Brown", 22));
         people.add(new Person("Noah", "Williams", 41));
         people.add(new Person("Ava", "Jones", 25));
@@ -56,37 +54,37 @@ public class Program {
 
     public static void searchByFirstName(List<Person> people) {
         System.out.println("Enter first name to search: ");
-        String name = read.nextLine().trim();
+        String firstName = read.nextLine();
 
-        boolean found = false;
-        for (Person p : people) {
-            if (p.getFirstName().equalsIgnoreCase(name)) {
-                System.out.println("✅Here's the match I found:\n" + p + "\n");
-                found = true;
-            }
+        List<Person> matchingName = people.stream()
+                .filter(p -> p.getFirstName().equalsIgnoreCase(firstName))
+                .collect(Collectors.toList());
+
+        if (matchingName.isEmpty()) {
+            System.out.println("No matches found for first name: " + firstName);
+        } else {
+            System.out.println("Matching first Name: ");
+            matchingName.forEach(System.out::println);
+            System.out.println();
         }
-
-        if (!found) {
-            System.out.println("No matches found for the first name " + name);
-        }
-
     }
 
     public static void searchByLastName(List<Person> people) {
         System.out.println("Enter last name to search: ");
-        String name = read.nextLine().trim();
+        String lastName = read.nextLine();
 
-        boolean found = false;
-        for (Person p : people) {
-            if (p.getLastName().equalsIgnoreCase(name)) {
-                System.out.println("✅Here's the match I found:\n" + p + "\n");
-                found = true;
-            }
+        List<Person> matchingName = people.stream()
+                .filter(p -> p.getLastName().equalsIgnoreCase(lastName))
+                .collect(Collectors.toList());
+
+        if (matchingName.isEmpty()) {
+            System.out.println("No matches found for last name: " + lastName);
+        } else {
+            System.out.println("Matching last name: ");
+            matchingName.forEach(System.out::println);
+            System.out.println();
         }
 
-        if (!found) {
-            System.out.println("No matches for the last name " + name);
-        }
     }
 
     public static double averageAge(List<Person> people) {

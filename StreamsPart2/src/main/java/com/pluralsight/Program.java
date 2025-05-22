@@ -57,7 +57,7 @@ public class Program {
         String firstName = read.nextLine();
 
         List<Person> matchingName = people.stream()
-                .filter(p -> p.getFirstName().equalsIgnoreCase(firstName))
+                .filter(p -> p.getFirstName().toLowerCase().contains(firstName))
                 .collect(Collectors.toList());
 
         if (matchingName.isEmpty()) {
@@ -74,7 +74,7 @@ public class Program {
         String lastName = read.nextLine();
 
         List<Person> matchingName = people.stream()
-                .filter(p -> p.getLastName().equalsIgnoreCase(lastName))
+                .filter(p -> p.getLastName().toLowerCase().contains(lastName))
                 .collect(Collectors.toList());
 
         if (matchingName.isEmpty()) {
@@ -88,39 +88,12 @@ public class Program {
     }
 
     public static double averageAge(List<Person> people) {
-        int totalAge = 0;
-        int numberOfPeople = 0;
-        Person oldestPerson = null;
-        Person youngestPerson = null;
-
-        for (Person p : people) {
-            totalAge += p.getAge();
-            numberOfPeople++;
-
-            if (oldestPerson == null || p.getAge() > oldestPerson.getAge()) {
-                oldestPerson = p;
-            }
-
-            if (youngestPerson == null || p.getAge() < youngestPerson.getAge()) {
-                youngestPerson = p;
-            }
-        }
-
-        if (numberOfPeople == 0) {
-            System.out.println("No people in the list. Cannot compute average age.");
-            return 0.0;
-        }
-
-        double averageAge = (double) totalAge / numberOfPeople;
-        System.out.printf("✅ Average Age: %.2f%n", averageAge);
-
-        if (oldestPerson != null) {
-            System.out.println("👴 Oldest Person: " + oldestPerson);
-        }
-
-        if (youngestPerson != null) {
-            System.out.println("🧒 Youngest Person: " + youngestPerson + "\n");
-        }
+        double averageAge = people.stream()
+                .mapToDouble(Person::getAge)
+                .average()
+                .orElse(0.0);
+        System.out.printf("Average Age: %.2f", averageAge);
+        System.out.println();
 
         return averageAge;
     }

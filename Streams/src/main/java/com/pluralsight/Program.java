@@ -28,15 +28,16 @@ public class Program {
 
         while (running) {
             try {
-                System.out.println("Search by: \n1) First Name\n2) Last Name\n3) Exit");
+                System.out.println("Search by: \n1) First Name\n2) Last Name\n3) Average Age\n4) Exit");
                 System.out.println("Enter choice: ");
                 int choice = read.nextInt();
                 read.nextLine();
- 
+
                 switch (choice) {
                     case 1 -> searchByFirstName(people);
                     case 2 -> searchByLastName(people);
-                    case 3 -> {
+                    case 3 -> averageAge(people);
+                    case 4 -> {
                         System.out.println("\nExiting. See you next time!");
                         running = false;
                     }
@@ -87,5 +88,44 @@ public class Program {
             System.out.println("No matches for the last name " + name);
         }
     }
+
+    public static double averageAge(List<Person> people) {
+        int totalAge = 0;
+        int numberOfPeople = 0;
+        Person oldestPerson = null;
+        Person youngestPerson = null;
+
+        for (Person p : people) {
+            totalAge += p.getAge();
+            numberOfPeople++;
+
+            if (oldestPerson == null || p.getAge() > oldestPerson.getAge()) {
+                oldestPerson = p;
+            }
+
+            if (youngestPerson == null || p.getAge() < youngestPerson.getAge()) {
+                youngestPerson = p;
+            }
+        }
+
+        if (numberOfPeople == 0) {
+            System.out.println("No people in the list. Cannot compute average age.");
+            return 0.0;
+        }
+
+        double averageAge = (double) totalAge / numberOfPeople;
+        System.out.printf("✅ Average Age: %.2f%n", averageAge);
+
+        if (oldestPerson != null) {
+            System.out.println("👴 Oldest Person: " + oldestPerson);
+        }
+
+        if (youngestPerson != null) {
+            System.out.println("🧒 Youngest Person: " + youngestPerson + "\n");
+        }
+
+        return averageAge;
+    }
+
 
 }

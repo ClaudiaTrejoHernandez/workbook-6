@@ -88,13 +88,22 @@ public class Program {
     }
 
     public static double averageAge(List<Person> people) {
-        double averageAge = people.stream()
-                .mapToDouble(Person::getAge)
-                .average()
-                .orElse(0.0);
+        double sum = people.stream()
+                .map(Person::getAge)
+                .reduce(0,Integer::sum);
+        double averageAge = sum / people.size();
+
+        List<Person> sortingAge = people.stream()
+                .sorted(Comparator.comparingDouble(Person::getAge))
+                .collect(Collectors.toList());
+
+        Person youngestPerson = sortingAge.get(0);
+        Person oldestPerson = sortingAge.get(sortingAge.size() - 1);
+
         System.out.printf("Average Age: %.2f", averageAge);
         System.out.println();
-
+        System.out.println("Oldest person: " + oldestPerson);
+        System.out.println("Youngest person: " + youngestPerson);
         return averageAge;
     }
 
